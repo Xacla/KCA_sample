@@ -14,8 +14,8 @@ def kernel_gause(x_i,x_j):
     return np.exp(x_norm)
 
 a=1
-b=1
-c=1.5
+b=2
+c=1
 
 circle_x=[]
 circle_y=[]
@@ -37,12 +37,12 @@ for theta in [0.01*i for i in range(314)]:
         #print(x,y,z)
 print(len(hight))
 
-'''
+
 fig = plt.figure()
 ax = Axes3D(fig)
 ax.scatter(circle_x,circle_y,hight)
 plt.show()
-'''
+
 
 #PCAの場合
 data=np.array(data)
@@ -78,3 +78,7 @@ print(ones_matrix[0,0])
 
 i_n=np.identity(kernel_matrix.shape[0])
 j_n=i_n - ones_matrix
+
+#KCAにおける固有値計算
+value_solve=np.dot(j_n,kernel_matrix)
+lamda,v=np.linalg.eig(value_solve)
