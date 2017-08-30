@@ -5,45 +5,13 @@ import random
 from sklearn.decomposition import PCA
 import pandas as pd
 
-def create_elipsoid(a,b,c,theta,phi):
-    x=a*np.sin(theta)*np.cos(phi)
-    y=b*np.sin(theta)*np.sin(phi)
-    z=c*np.cos(theta)
-    return x,y,z
 def kernel_gause(x_i,x_j):
+    beta=5.0
     x_norm=np.linalg.norm(x_j-x_i)
-    return np.exp(x_norm)
+    return np.exp(x_norm*(-beta))
 
-a=1
-b=2
-c=1
-
-circle_x=[]
-circle_y=[]
-hight=[]
-data=[]
-RONDAM_NUM=1500
-'''
-#楕円型のデータを作成
-for theta in [0.01*i for i in range(314)]:
-    for phi in [0.01*k for k in range(314*2)]:
-        if random.randint(0,RONDAM_NUM)==1:
-            x,y,z=create_elipsoid(a,b,c,theta,phi)
-            box=[x,y,z]
-            circle_x.append(x)
-            circle_y.append(y)
-            hight.append(z)
-            data.append(box)
-
-        #print(x,y,z)
-print(len(hight))
-data=np.array(data)
-
-out_csv=pd.DataFrame(data)
-#out_csv.to_csv("example_elipsoid_data.csv")
-np.savetxt("example_elipsoid_data.csv",data,delimiter=",")
-'''
-data=np.loadtxt("example_elipsoid_data.csv",delimiter=",")
+#data=np.loadtxt("example_elipsoid_data.csv",delimiter=",")
+data=np.loadtxt("example_swithroll_data.csv",delimiter=",")
 
 split_n=[i*0.1 for i in range(1,10,2)]
 indices=[int(data.shape[0]*n) for n in split_n]
@@ -58,6 +26,7 @@ ax.scatter(result_4[:,0],result_4[:,1],result_4[:,2],c=color_box[3])
 ax.scatter(result_5[:,0],result_5[:,1],result_5[:,2],c=color_box[4])
 ax.scatter(result_6[:,0],result_6[:,1],result_6[:,2],c=color_box[5])
 plt.show()
+
 
 #3次元空間にプロット
 '''
@@ -122,11 +91,12 @@ result_1,result_2,result_3,result_4,result_5,result_6=np.split(v, indices)
 #plt.scatter(v[:,x1],v[:,x2])
 color_box=['b','g','r','c','m','y','k']
 plt.scatter(result_1[:,x1],result_1[:,x2],c=color_box[0])
-plt.scatter(result_2[:,x1],result_2[:,x2],c=color_box[0])
+plt.scatter(result_2[:,x1],result_2[:,x2],c=color_box[1])
 plt.scatter(result_3[:,x1],result_3[:,x2],c=color_box[2])
 plt.scatter(result_4[:,x1],result_4[:,x2],c=color_box[3])
-plt.scatter(result_5[:,x1],result_5[:,x2],c=color_box[0])
-plt.scatter(result_6[:,x1],result_6[:,x2],c=color_box[0])
+plt.scatter(result_5[:,x1],result_5[:,x2],c=color_box[4])
+plt.scatter(result_6[:,x1],result_6[:,x2],c=color_box[5])
 #plt.show()
-save_name='kca_plot.jpg'
+#save_name='kca_plot_beta_1.0.jpg'
+save_name='kca_plot_swithroll_5.0.jpg'
 plt.savefig(save_name)
