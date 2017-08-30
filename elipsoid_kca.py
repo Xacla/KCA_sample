@@ -6,13 +6,14 @@ from sklearn.decomposition import PCA
 import pandas as pd
 
 def kernel_gause(x_i,x_j):
-    beta=5.0
+    beta=0.5
     x_norm=np.linalg.norm(x_j-x_i)
     return np.exp(x_norm*(-beta))
 
 #data=np.loadtxt("example_elipsoid_data.csv",delimiter=",")
 data=np.loadtxt("example_swithroll_data.csv",delimiter=",")
 
+'''
 split_n=[i*0.1 for i in range(1,10,2)]
 indices=[int(data.shape[0]*n) for n in split_n]
 result_1,result_2,result_3,result_4,result_5,result_6=np.split(data, indices)
@@ -26,7 +27,7 @@ ax.scatter(result_4[:,0],result_4[:,1],result_4[:,2],c=color_box[3])
 ax.scatter(result_5[:,0],result_5[:,1],result_5[:,2],c=color_box[4])
 ax.scatter(result_6[:,0],result_6[:,1],result_6[:,2],c=color_box[5])
 plt.show()
-
+'''
 
 #3次元空間にプロット
 '''
@@ -35,13 +36,6 @@ ax = Axes3D(fig)
 ax.scatter(circle_x,circle_y,hight)
 plt.show()
 '''
-
-#PCAの場合
-pca=PCA()
-pca.fit(data)
-pca_data=pca.fit_transform(data)
-plt.scatter(pca_data[:,0],pca_data[:,1])
-plt.show()
 
 
 #カ-ネル行列の生成
@@ -98,5 +92,5 @@ plt.scatter(result_5[:,x1],result_5[:,x2],c=color_box[4])
 plt.scatter(result_6[:,x1],result_6[:,x2],c=color_box[5])
 #plt.show()
 #save_name='kca_plot_beta_1.0.jpg'
-save_name='kca_plot_swithroll_5.0.jpg'
+save_name='kca_plot_swithroll_0.5.jpg'
 plt.savefig(save_name)

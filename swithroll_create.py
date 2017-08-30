@@ -3,7 +3,7 @@ import numpy as np
 import random as rdn
 from mpl_toolkits.mplot3d import Axes3D
 
-p=[i/100 for i in range (-300,0,1)]
+p=[i/1000 for i in range (-3000,0,1)]
 #print(p)
 
 depth=5

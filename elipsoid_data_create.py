@@ -6,9 +6,9 @@ from sklearn.decomposition import PCA
 import pandas as pd
 
 def create_elipsoid(a,b,c,theta,phi):
-    x=a*np.sin(theta)*np.cos(phi)
-    y=b*np.sin(theta)*np.sin(phi)
-    z=c*np.cos(theta)
+    x=random.uniform(0,a)*np.sin(theta)*np.cos(phi)
+    y=random.uniform(0,b)*np.sin(theta)*np.sin(phi)
+    z=random.uniform(0,c)*np.cos(theta)
     return x,y,z
 
 a=1
@@ -19,7 +19,7 @@ circle_x=[]
 circle_y=[]
 hight=[]
 data=[]
-RONDAM_NUM=1500
+RONDAM_NUM=100
 
 #楕円型のデータを作成
 for theta in [0.01*i for i in range(314)]:
