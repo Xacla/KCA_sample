@@ -23,7 +23,7 @@ circle_y=[]
 hight=[]
 data=[]
 RONDAM_NUM=1500
-
+'''
 #楕円型のデータを作成
 for theta in [0.01*i for i in range(314)]:
     for phi in [0.01*k for k in range(314*2)]:
@@ -40,11 +40,13 @@ print(len(hight))
 data=np.array(data)
 
 out_csv=pd.DataFrame(data)
-out_csv.to_csv("example_elipsoid_data.csv")
+#out_csv.to_csv("example_elipsoid_data.csv")
+np.savetxt("example_elipsoid_data.csv",data,delimiter=",")
+'''
+data=np.loadtxt("example_elipsoid_data.csv",delimiter=",")
 
 split_n=[i*0.1 for i in range(1,10,2)]
 indices=[int(data.shape[0]*n) for n in split_n]
-print(indices)
 result_1,result_2,result_3,result_4,result_5,result_6=np.split(data, indices)
 color_box=['b','g','r','c','m','y','k']
 fig = plt.figure()
@@ -92,7 +94,6 @@ ones_matrix=np.array(ones_matrix)
 n_reverse=1/kernel_matrix.shape[0]
 ones_matrix=n_reverse*ones_matrix
 print(kernel_matrix.shape)
-print(ones_matrix[0,0])
 
 i_n=np.identity(kernel_matrix.shape[0])
 j_n=i_n - ones_matrix
@@ -100,19 +101,23 @@ j_n=i_n - ones_matrix
 #KCAにおける固有値計算
 value_solve=np.dot(j_n,kernel_matrix)
 lamda,v=np.linalg.eig(value_solve)
+
 #固有値をソート
 ind=np.argsort(lamda)
 x1=ind[-1]
 x2=ind[-2]
 
+#計算した結果におけるx1が最大値をもつデータを探す
+max_x1=0
+for serch in range(data.shape[0]):
+    if v[serch][x1]>v[max_x1][x1]:
+        max_x1=serch
+print(data[max_x1,:])
+
 #描写
 split_n=[i*0.1 for i in range(1,10,2)]
 indices=[int(v.shape[0]*n) for n in split_n]
-print(indices)
 result_1,result_2,result_3,result_4,result_5,result_6=np.split(v, indices)
-#print(x1,x2)
-#print(lamda)
-#print(ind)
 
 #plt.scatter(v[:,x1],v[:,x2])
 color_box=['b','g','r','c','m','y','k']
@@ -122,4 +127,6 @@ plt.scatter(result_3[:,x1],result_3[:,x2],c=color_box[2])
 plt.scatter(result_4[:,x1],result_4[:,x2],c=color_box[3])
 plt.scatter(result_5[:,x1],result_5[:,x2],c=color_box[0])
 plt.scatter(result_6[:,x1],result_6[:,x2],c=color_box[0])
-plt.show()
+#plt.show()
+save_name='kca_plot.jpg'
+plt.savefig(save_name)
