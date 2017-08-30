@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import random
 from sklearn.decomposition import PCA
+import pandas as pd
 
 def create_elipsoid(a,b,c,theta,phi):
     x=a*np.sin(theta)*np.cos(phi)
@@ -37,12 +38,13 @@ for theta in [0.01*i for i in range(314)]:
         #print(x,y,z)
 print(len(hight))
 
+out_csv=pd.DataFrame(data)
+out_csv.to_csv("example_elipsoid_data.csv")
 
 fig = plt.figure()
 ax = Axes3D(fig)
 ax.scatter(circle_x,circle_y,hight)
 plt.show()
-
 
 #PCAの場合
 data=np.array(data)
@@ -52,8 +54,6 @@ pca_data=pca.fit_transform(data)
 plt.scatter(pca_data[:,0],pca_data[:,1])
 plt.show()
 
-#KCAの場合
-kernel_gause(data[20,:],data[1,:])
 
 #カ-ネル行列の生成
 kernel_matrix=[]
@@ -82,3 +82,12 @@ j_n=i_n - ones_matrix
 #KCAにおける固有値計算
 value_solve=np.dot(j_n,kernel_matrix)
 lamda,v=np.linalg.eig(value_solve)
+#固有値をソート
+ind=np.argsort(lamda)
+x1=ind[-1]
+x2=ind[-2]
+#print(x1,x2)
+#print(lamda)
+#print(ind)
+plt.scatter(v[:,x1],v[:,x2])
+plt.show()
