@@ -37,17 +37,35 @@ for theta in [0.01*i for i in range(314)]:
 
         #print(x,y,z)
 print(len(hight))
+data=np.array(data)
 
 out_csv=pd.DataFrame(data)
 out_csv.to_csv("example_elipsoid_data.csv")
 
+split_n=[i*0.1 for i in range(1,10,2)]
+indices=[int(data.shape[0]*n) for n in split_n]
+print(indices)
+result_1,result_2,result_3,result_4,result_5,result_6=np.split(data, indices)
+color_box=['b','g','r','c','m','y','k']
+fig = plt.figure()
+ax = Axes3D(fig)
+ax.scatter(result_1[:,0],result_1[:,1],result_1[:,2],c=color_box[0])
+ax.scatter(result_2[:,0],result_2[:,1],result_2[:,2],c=color_box[1])
+ax.scatter(result_3[:,0],result_3[:,1],result_3[:,2],c=color_box[2])
+ax.scatter(result_4[:,0],result_4[:,1],result_4[:,2],c=color_box[3])
+ax.scatter(result_5[:,0],result_5[:,1],result_5[:,2],c=color_box[4])
+ax.scatter(result_6[:,0],result_6[:,1],result_6[:,2],c=color_box[5])
+plt.show()
+
+#3次元空間にプロット
+'''
 fig = plt.figure()
 ax = Axes3D(fig)
 ax.scatter(circle_x,circle_y,hight)
 plt.show()
+'''
 
 #PCAの場合
-data=np.array(data)
 pca=PCA()
 pca.fit(data)
 pca_data=pca.fit_transform(data)
@@ -86,8 +104,22 @@ lamda,v=np.linalg.eig(value_solve)
 ind=np.argsort(lamda)
 x1=ind[-1]
 x2=ind[-2]
+
+#描写
+split_n=[i*0.1 for i in range(1,10,2)]
+indices=[int(v.shape[0]*n) for n in split_n]
+print(indices)
+result_1,result_2,result_3,result_4,result_5,result_6=np.split(v, indices)
 #print(x1,x2)
 #print(lamda)
 #print(ind)
-plt.scatter(v[:,x1],v[:,x2])
+
+#plt.scatter(v[:,x1],v[:,x2])
+color_box=['b','g','r','c','m','y','k']
+plt.scatter(result_1[:,x1],result_1[:,x2],c=color_box[0])
+plt.scatter(result_2[:,x1],result_2[:,x2],c=color_box[0])
+plt.scatter(result_3[:,x1],result_3[:,x2],c=color_box[2])
+plt.scatter(result_4[:,x1],result_4[:,x2],c=color_box[3])
+plt.scatter(result_5[:,x1],result_5[:,x2],c=color_box[0])
+plt.scatter(result_6[:,x1],result_6[:,x2],c=color_box[0])
 plt.show()
