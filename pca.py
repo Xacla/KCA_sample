@@ -41,4 +41,6 @@ plt.scatter(result_3[:,0],result_3[:,1],c=color_box[2])
 plt.scatter(result_4[:,0],result_4[:,1],c=color_box[3])
 plt.scatter(result_5[:,0],result_5[:,1],c=color_box[4])
 plt.scatter(result_6[:,0],result_6[:,1],c=color_box[5])
-plt.show()
+#plt.show()
+save_name="pca.png"
+plt.savefig(save_name)
