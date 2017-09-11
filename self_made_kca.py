@@ -14,8 +14,6 @@ def kernel_gause(x_i,x_j):
 data=np.loadtxt("example_swithroll_data.csv",delimiter=",")
 #data=np.loadtxt("example_2circles.csv",delimiter=",")
 
-
-'''
 split_n=[i*0.1 for i in range(1,10,2)]
 indices=[int(data.shape[0]*n) for n in split_n]
 result_1,result_2,result_3,result_4,result_5,result_6=np.split(data, indices)
@@ -27,8 +25,8 @@ ax.scatter(result_2[:,0],result_2[:,1],result_2[:,2],c=color_box[1])
 ax.scatter(result_3[:,0],result_3[:,1],result_3[:,2],c=color_box[2])
 ax.scatter(result_4[:,0],result_4[:,1],result_4[:,2],c=color_box[3])
 ax.scatter(result_5[:,0],result_5[:,1],result_5[:,2],c=color_box[4])
-ax.scatter(r
-'''
+ax.scatter(result_6[:,0],result_6[:,1],result_6[:,2],c=color_box[5])
+plt.show()
 
 #カ-ネル行列の生成
 kernel_matrix=[]
@@ -73,8 +71,8 @@ plt.scatter(result_3[:,x1],result_3[:,x2],c=color_box[2])
 plt.scatter(result_4[:,x1],result_4[:,x2],c=color_box[3])
 plt.scatter(result_5[:,x1],result_5[:,x2],c=color_box[4])
 plt.scatter(result_6[:,x1],result_6[:,x2],c=color_box[5])
-plt.show()
-#save_name='kca_plot_beta_1.0.jpg'
+#plt.show()
+save_name='kca_plot_elipsoid_0.1.jpg'
 #save_name='kca_plot_swithroll_0..jpg'
 #save_name='kca_plot_2circles.jpg'
-#plt.savefig(save_name)
+plt.savefig(save_name)
